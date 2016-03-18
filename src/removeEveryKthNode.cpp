@@ -17,7 +17,6 @@ struct node {
 	int num;
 	struct node *next;
 };
-
 struct node * removeEveryKthNode(struct node *head, int K) {
 	struct node *temp1=NULL;
 	int i = 1, len = 0,temp;
@@ -25,9 +24,9 @@ struct node * removeEveryKthNode(struct node *head, int K) {
 		return NULL;
 	if ( K == 1)
 	{
-		head = NULL;
-		return head;
+		return NULL;
 	}
+	temp1 = head;
 	while (temp1 != NULL)
 	{
 		temp1 = temp1->next;
@@ -35,18 +34,21 @@ struct node * removeEveryKthNode(struct node *head, int K) {
 	}
 	if (K > len)
 		return head;
-	temp1 = (struct node *)malloc(sizeof(struct node)*len);
 	temp1 = head;
-	i = 0;
-	while (temp1 != NULL)
+	for (i = 1; i<len;)
 	{
-		temp1 = temp1->next;
+	
 		if ((i + 1) % K == 0)
 		{
 			temp1->next = temp1->next->next;
-			temp1 = temp1->next;
+			if (temp1->next != NULL)
+				temp1 = temp1->next;
 			i++;
 		}
+		else
+		if (temp1->next!=NULL)
+			temp1 = temp1->next;
+
 		i++;
 	}
 	return head;
